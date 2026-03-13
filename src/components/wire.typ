@@ -250,3 +250,4 @@
 ///     - string: label text displayed on the wire
 /// *Anchors:* same as `wire`
 #let swire(..params) = wire(shape: "zigzag", ratio: 100%, ..params)
+
