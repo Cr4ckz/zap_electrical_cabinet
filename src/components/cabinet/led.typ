@@ -5,15 +5,19 @@
 
 /// An LED (Light Emitting Diode) indicator symbol for signal display.
 ///
-/// Draws a simple LED with two connection points and optional label/color indication.
+/// Draws a simple LED with two connection points and optional label/color indication. 
 /// Used for status indicators, alarms, or signal display in electrical schematics.
 ///
-/// - name (string): Component identifier/name
-/// - node (position|string): Placement position or anchor point
-/// - label (string): LED label/description; default: ""
-/// - color (color): LED color (visual indicator); default: red
-/// - text-size (length): Label font size; default: 3pt
-/// - ..params: Additional style parameters (width, height, stroke, etc.)
+/// - name (string): Component identifier/name.
+/// - node (position, string): Placement position or anchor point.
+/// - label (string): LED label or description; default: "".
+/// - color (color): LED visual color; default: red.
+/// - text-size (length): Label font size; default: 3pt.
+/// - ..params (any): Additional style parameters like width, height, or stroke.
+///
+/// *Anchors:*
+/// - p1 / anode: Top connection point.
+/// - p2 / cathode: Bottom connection point.
 #let led(name, node, label: "", color: red, ..params) = {
   
   let draw(ctx, position, style) = {

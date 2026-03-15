@@ -5,10 +5,18 @@
 
 /// A DIN rail component for mounting devices in electrical cabinets.
 ///
-/// - name (string): Component identifier/name
-/// - node (position|string): Placement position or anchor point
-/// - orientation (string): "horizontal" (default) or "vertical"
-/// - ..params: Additional style parameters (length, width, fill, stroke, etc.)
+/// Draws a standard TS35 rail profile used for mounting circuit breakers, 
+/// relays, and other industrial equipment.
+///
+/// - name (string): Component identifier/name.
+/// - node (position, string): Placement position or anchor point.
+/// - orientation (string): "horizontal" (default) or "vertical".
+/// - ..params (any): Additional style parameters such as length, width, fill, or stroke.
+///
+/// *Anchors:*
+/// - center: Center of the rail.
+/// - west / east: Left and right ends (for horizontal).
+/// - north / south: Top and bottom ends (for vertical).
 #let dinrail(name, node, orientation: "horizontal", ..params) = {
   let rotate = 0deg
   if(orientation == "vertical") {
@@ -29,19 +37,23 @@
   component("dinrail", name, node, draw: draw, rotate: rotate, ..params)
 }
 
-/// Creates an electrical cabinet/enclosure with horizontal slots for DIN rails and components.
+/// Creates an electrical cabinet enclosure with horizontal slots for rails and ducts.
 ///
-/// Generates a rectangular cabinet with configurable rows and internal placeholders (slots)
-/// for mounting rails and wiring ducts.
+/// Generates a rectangular cabinet frame with configurable internal slots 
+/// (anchors) that simplify the alignment of DIN rails and wire ducts.
 ///
-/// - name (string): Component identifier/name
-/// - node (position|string): Placement position or anchor point
-/// - orientation (string): "horizontal" (default) or "vertical"
-/// - rows (int): Number of horizontal slots in the cabinet; default: 5
-/// - width (length): Cabinet width; default: 15
-/// - height (length): Cabinet height; default: 25
-/// - padding (length): Internal padding from cabinet edges; default: 0.8
-/// - ..params: Additional style parameters (fill, stroke, etc.)
+/// - name (string): Component identifier/name.
+/// - node (position, string): Placement position or anchor point.
+/// - orientation (string): "horizontal" (default) or "vertical".
+/// - rows (int): Number of horizontal slots in the cabinet; default: 5.
+/// - width (length): Cabinet outer width; default: 15.
+/// - height (length): Cabinet outer height; default: 25.
+/// - padding (length): Internal padding from cabinet edges; default: 0.8.
+/// - ..params (any): Additional style parameters for the enclosure frame.
+///
+/// *Slot Anchors:*
+/// - slot-n: Center of the n-th row (e.g., "slot-1").
+/// - slot-n-left: Leftmost point of the n-th row.
 #let cabinet(name, node, orientation: "horizontal", ..params) = {
   let rotate = 0deg
   if(orientation == "vertical") {
@@ -83,15 +95,18 @@
 
 /// A cable/wire duct for routing and organizing cables in electrical cabinets.
 ///
-/// Draws a channel with visual slots for organizing multiple cables. Typically used to
-/// route power, control, or signal cables horizontally or vertically.
+/// Draws a slotted plastic channel used to hide and protect wiring. 
+/// In a layout, cables typically terminate at the edge of this component.
 ///
-/// - name (string): Component identifier/name
-/// - node (position|string): Placement position or anchor point
-/// - orientation (string): "horizontal" (default) or "vertical"
-/// - length (length): Duct length; default: 13.4
-/// - width (length): Duct width; default: 1.2
-/// - ..params: Additional style parameters (fill, stroke, etc.)
+/// - name (string): Component identifier/name.
+/// - node (position, string): Placement position or anchor point.
+/// - orientation (string): "horizontal" (default) or "vertical".
+/// - length (length): Duct total length; default: 13.4.
+/// - width (length): Duct total width; default: 1.2.
+/// - ..params (any): Additional style parameters for the duct body.
+///
+/// *Visuals:*
+/// - Includes decorative slots along the edges to simulate cable entry points.
 #let wireduct(name, node, orientation: "horizontal", ..params) = {
   let rotate = 0deg
   if(orientation == "vertical") {

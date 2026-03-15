@@ -3,20 +3,27 @@
 #import "/src/utils.typ": get-style, opposite-anchor, resolve-style
 #import cetz.draw: *
 
-/// A terminal/connector block component for electrical connections.
+/// A terminal or connector block component for electrical connections.
 ///
-/// Draws a vertical terminal block with two connection points and optional label.
-/// Commonly used for wire connections and power distribution in control cabinets.
+/// Draws a vertical terminal block with two connection points and an optional label. 
+/// These are typically used for connecting external field wires to internal cabinet 
+/// wiring or for distributing power.
 ///
-/// - name (string): Component identifier/name
-/// - node (position|string): Placement position or anchor point
-/// - label (string): Terminal label (displayed vertically); default: ""
-/// - text-color (color|none): Text color; default: auto-selected based on fill color
-/// - width (length): Terminal width; default: 0.4
-/// - height (length): Terminal height; default: 1.8
-/// - fill (color): Terminal fill color; default: gray
-/// - text-size (length): Label font size; default: 3pt
-///parameter(stroke, etc.)
+/// - name (string): Component identifier/name.
+/// - node (position, string): Placement position or anchor point.
+/// - label (string): Terminal label (displayed vertically); default: "".
+/// - text-color (color, none): Label color; default: auto-selected based on fill.
+/// - width (length): Terminal width; default: 0.4.
+/// - height (length): Terminal height; default: 1.8.
+/// - fill (color): Terminal body color; default: gray.
+/// - text-size (length): Label font size; default: 3pt.
+/// - ..params (any): Additional style parameters like stroke.
+///
+/// *Anchors:*
+/// - p1: Top connection point.
+/// - p2: Bottom connection point.
+/// - left: Middle left anchor.
+/// - right: Middle right anchor.
 #let terminal(name, node, label: "", text-color: none, ..params) = {
   
   let draw(ctx, position, style) = {
@@ -50,4 +57,28 @@
   }
 
   component("terminal", name, node, draw: draw, ..params)
+}
+
+/// Creates a sequence of terminal blocks placed side-by-side.
+///
+/// - name (string): Prefix for the terminal names.
+/// - node (position, string): Starting position of the first terminal.
+/// - labels (array): List of strings for the terminal labels.
+/// - dir (string): Direction of the strip; default: "right".
+/// - fill (color): Color for all terminals; default: gray.
+/// - ..params (any): Passed to the individual terminal components.
+#let terminal_strip(name, node, labels, dir: "right", fill: gray, ..params) = {
+  let w = params.at("width", default: 0.4)
+  
+  for i in range(labels.len()) {
+    let l = labels.at(i)
+    let offset = i * w
+    let pos = if dir == "right" {
+      (rel: (offset, 0), to: node)
+    } else {
+      (rel: (0, -offset), to: node)
+    }
+    
+    terminal(name + "-" + str(i + 1), pos, label: l, fill: fill, ..params)
+  }
 }

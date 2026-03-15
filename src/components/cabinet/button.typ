@@ -8,13 +8,17 @@
 /// Draws a push button symbol with two connection points and optional label.
 /// Used for start/stop controls, manual triggers, and user interfaces in electrical circuits.
 ///
-/// - name (string): Component identifier/name
-/// - node (position|string): Placement position or anchor point
-/// - label (string): Button label/description; default: ""
-/// - button-type (string): Button appearance type - "normal" (default) or "emergency" (red)
-/// - fill (color): Button fill color; default: gray.lighten(60%)
-/// - text-size (length): Label font size; default: 3pt
-/// - ..params: Additional style parameters (width, height, stroke, etc.)
+/// - name (string): Component identifier/name.
+/// - node (position, string): Placement position or anchor point.
+/// - label (string): Button label or description; default: "".
+/// - button-type (string): Button appearance type - "normal" (default) or "emergency" (red).
+/// - fill (color): Button fill color; default: gray.lighten(60%).
+/// - text-size (length): Label font size; default: 3pt.
+/// - ..params (any): Additional style parameters like width, height, or stroke.
+///
+/// *Anchors:*
+/// - p1: Top connection point.
+/// - p2: Bottom connection point.
 #let button(name, node, label: "", button-type: "normal", ..params) = {
   let draw(ctx, position, style) = {
     let w = style.at("width", default: 0.6)
@@ -59,15 +63,19 @@
 /// A switch component for toggled control input.
 ///
 /// Draws a toggle switch symbol with two connection points and optional label.
-/// Used for on/off controls, mode selection, and manual switching in electrical circuits.
+/// Used for on/off controls, mode selection, and manual switching.
 ///
-/// - name (string): Component identifier/name
-/// - node (position|string): Placement position or anchor point
-/// - label (string): Switch label/description; default: ""
-/// - state (string): Initial switch state - "open" or "closed" (default: "open")
-/// - fill (color): Switch body fill color; default: gray.lighten(60%)
-/// - text-size (length): Label font size; default: 3pt
-/// - ..params: Additional style parameters (width, height, stroke, etc.)
+/// - name (string): Component identifier/name.
+/// - node (position, string): Placement position or anchor point.
+/// - label (string): Switch label or description; default: "".
+/// - state (string): Initial switch state - "open" or "closed"; default: "open".
+/// - fill (color): Switch body fill color; default: gray.lighten(60%).
+/// - text-size (length): Label font size; default: 3pt.
+/// - ..params (any): Additional style parameters.
+///
+/// *Anchors:*
+/// - p1: Top connection point.
+/// - p2: Bottom connection point.
 #let switch(name, node, label: "", state: "open", ..params) = {
   let draw(ctx, position, style) = {
     let w = style.at("width", default: 0.5)
@@ -115,18 +123,23 @@
   component("switch", name, node, draw: draw, ..params)
 }
 
-/// A selector/changeover switch component for selecting between two inputs.
+/// A selector or changeover switch component for selecting between two inputs.
 ///
 /// Draws a 2-position selector switch with a common terminal and two selectable inputs.
-/// Used for switching between different signal sources or power supplies.
+/// Used for switching between different signal sources or manual/auto modes.
 ///
-/// - name (string): Component identifier/name
-/// - node (position|string): Placement position or anchor point
-/// - label (string): Switch label/description; default: ""
-/// - position (string): Selector position - "a" (selects top input) or "b" (selects bottom input); default: "a"
-/// - fill (color): Switch body fill color; default: gray.lighten(60%)
-/// - text-size (length): Label font size; default: 3pt
-/// - ..params: Additional style parameters (width, height, stroke, etc.)
+/// - name (string): Component identifier/name.
+/// - node (position, string): Placement position or anchor point.
+/// - label (string): Switch label or description; default: "".
+/// - position (string): Selector position - "a" (left) or "b" (right); default: "a".
+/// - fill (color): Switch body fill color; default: gray.lighten(60%).
+/// - text-size (length): Label font size; default: 3pt.
+/// - ..params (any): Additional style parameters.
+///
+/// *Anchors:*
+/// - com / p1: Common terminal (bottom).
+/// - a / p2: Selectable input A (top-left).
+/// - b / p3: Selectable input B (top-right).
 #let selector(name, node, label: "", position: "a", ..params) = {
   let draw(ctx, position_val, style) = {
     let w = style.at("width", default: 0.6)

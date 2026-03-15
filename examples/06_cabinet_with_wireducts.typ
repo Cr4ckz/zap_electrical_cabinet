@@ -5,7 +5,8 @@
   cabinet("main", (0,0), rows: 7)
   
   // Oben und unten Kabelkanäle
-  wireduct("duct-top", (rel: (-3, 0), to: "main.slot-1"), length: 8)
+  wireduct("duct-top", (rel: (0, 0), to: "main.slot-1"))
+  wireduct("duct-top-vert", (rel: (0, -2), to: "main.slot-1"), orientation: "vertical", length:4)
   wireduct("duct-bottom", "main.slot-7")
   
   // Dazwischen Hutschienen
@@ -15,9 +16,9 @@
   // Ein horizontaler Kanal zwischen den Schienen
   wireduct("duct-mid", "main.slot-4")
 
-  terminal_strip("L1", (rel: (0.5, 0), to: "rail1.west"), ("L1", "L2", "L3")  )
+  terminal("L1", (rel: (0.5, 0), to: "rail1.west"), fill: white, label: "Test", text-size: 10pt)
   
-  mcb("CB1", (rel: (3, 0), to: "rail1.west"), label: "B123", text-size: 10pt)
+  mcb("CB1", (rel: (1.5, 0), to: "rail1.west"), label: "B123", text-size: 10pt)
 
   psu("G1", (rel: (5, 0), to: "rail1.west"), label: "Test", height: 3, width: 1.8, text-size: 10pt)
 
@@ -41,24 +42,19 @@
 
   contactor("K1", (rel: (6, 0), to: "rail2.west"), label: "Hauptschütz\nMotor")
   
-  // Ein Relais für die SPS-Kopplung
-  relais("K2", (rel: (12, 0), to: "rail2.west"), label: "Koppelrelais")
+
 
   
   set-style(wire: (stroke: blue))
   wire("CB1.p2",("duct-mid","-|","CB1.p2"))
-  wire(("duct-mid","-|","L1-1.p2"),("duct-mid","-|","CB1.p2"))
-  wire("L1-1.p2",("duct-mid","-|","L1-1.p2"))
-  stub("CB1.p1")
+  wire(("duct-mid","-|","L1.p2"),("duct-mid","-|","CB1.p2"))
+  wire("L1.p2",("duct-mid","-|","L1.p2"))
+  swire("CB1.p1", ("duct-top-vert", "-|", "duct-top"), ratio: 1, stroke: red)
 
   wire("PLC1.t1", ("duct-top", "-|", "PLC1.t1"))
   wire("PLC1.Q0_0", ("duct-mid", "-|", "PLC1.r1"))
 
   sstub("PSU2.L+")
   bridge("PLC1.CAN-L", ("PLC1.CAN-HIGH",), offset: 0.2, fill: none, dir: "x")
-
-  led("LED1", (rel: (0.5, 0)), label: "Status", text-size: 8pt, fill: red)
-  button("BTN1", (rel: (2, 0)), label: "Reset", text-size: 8pt, fill: green)
-  selector("S1", (rel: (4, 0)), label: "Power", position: "b")
 })
 

@@ -6,23 +6,27 @@
 
 /// A generic rectangular box component with configurable pin groups on all sides.
 ///
-/// Draws a box with labeled pins/terminals on the top, bottom, left, and right sides.
-/// Pins can be organized into groups with different styling for visual organization.
+/// Draws a flexible module with labeled terminals. Pins are organized into groups, 
+/// allowing for visual separation (e.g., separating power from signal).
 ///
-/// - name (string): Component identifier/name
-/// - node (position|string): Placement position or anchor point
-/// - label (string): Main label/title displayed in the box; default: "MODUL"
-/// - top_pins (array): Pin groups for top side; default: ()
-/// - bottom_pins (array): Pin groups for bottom side; default: ()
-/// - left_pins (array): Pin groups for left side; default: ()
-/// - right_pins (array): Pin groups for right side; default: ()
-/// - width (length): Box width; default: 4.0
-/// - height (length): Box height; default: 4.0
-/// - text-size (length): Label font size; default: 8pt
-/// - pin-text-size (length): Pin label font size; default: 5pt
-/// - fill (color): Box fill color; default: white.darken(2%)
-/// - stroke (stroke): Box border style; default: black + 0.8pt
-/// - ..params: Additional style parameters
+/// - name (string): Component identifier/name.
+/// - node (position, string): Placement position or anchor point.
+/// - label (string): Main title displayed in the center; default: "MODUL".
+/// - top_pins (array): Pin groups for the top side.
+/// - bottom_pins (array): Pin groups for the bottom side.
+/// - left_pins (array): Pin groups for the left side.
+/// - right_pins (array): Pin groups for the right side.
+/// - width (length): Box width; default: 4.0.
+/// - height (length): Box height; default: 4.0.
+/// - text-size (length): Label font size; default: 8pt.
+/// - pin-text-size (length): Pin label font size; default: 5pt.
+/// - fill (color): Box fill color; default: white.darken(2%).
+/// - stroke (stroke): Box border style; default: black + 0.8pt.
+/// - ..params (any): Additional style parameters.
+///
+/// *Pin Group Format:*
+/// Pass an array of strings. The last element can be a dictionary for styling, 
+/// e.g., `("L", "N", (fill: red))`.
 #let generic_box(name, node, label: "MODUL", top_pins: (), bottom_pins: (), left_pins: (), right_pins: (), ..params) = {
   let draw(ctx, position, style) = {
     let w = style.at("width", default: 4.0)
@@ -148,17 +152,18 @@
 
 /// A Power Supply Unit (PSU) component with configurable input and output pins.
 ///
-/// Creates a generic box with AC input pins (L, N, PE) and configurable positive/negative output pins.
+/// Creates a specialized module for power conversion. It automatically calculates 
+/// its width based on the number of specified terminals.
 ///
-/// - name (string): Component identifier/name
-/// - pos (position|string): Placement position
-/// - label (string): PSU label; default: "Netzteil 24V"
-/// - l_pins (array): Input pins (left side); default: ("L", "N", "PE")
-/// - plus_name (string): Name for positive output pins; default: "L+"
-/// - plus_count (int): Number of positive output pins; default: 2
-/// - minus_name (string): Name for negative/ground pins; default: "M"
-/// - minus_count (int): Number of negative output pins; default: 2
-/// - ..params: Additional style parameters (width, height, fill, stroke, etc.)
+/// - name (string): Component identifier/name.
+/// - pos (position, string): Placement position.
+/// - label (string): PSU title; default: "Netzteil 24V".
+/// - l_pins (array): AC input labels (top); default: ("L", "N", "PE").
+/// - plus_name (string): Label for positive DC pins; default: "L+".
+/// - plus_count (int): Number of positive terminals.
+/// - minus_name (string): Label for ground/negative pins; default: "M".
+/// - minus_count (int): Number of negative terminals.
+/// - ..params (any): Additional style parameters.
 #let psu(name, pos, 
   label: "Netzteil 24V", 
   l_pins: ("L", "N", "PE"), 
@@ -194,12 +199,13 @@
 
 /// A relay component with coil terminals and contact groups.
 ///
-/// Creates a relay with configurable coil pins (top) and switch contacts (bottom).
+/// Draws a standard control relay. Coil terminals (A1, A2) are placed on top, 
+/// while contact terminals (11, 12, 14) are placed on the bottom.
 ///
-/// - name (string): Component identifier/name
-/// - pos (position|string): Placement position
-/// - label (string): Relay label; default: "Relais"
-/// - ..params: Additional style parameters (width, height, fill, stroke, etc.)
+/// - name (string): Component identifier/name.
+/// - pos (position, string): Placement position.
+/// - label (string): Relay title; default: "Relais".
+/// - ..params (any): Additional style parameters.
 #let relais(name, pos, label: "Relais", ..params) = {
   let t_pins = ("A1", "A2")
   let b_pins = ("11", "12", "14")
@@ -219,12 +225,15 @@
 
 /// A contactor (electromagnetic switch) component for motor control.
 ///
-/// Creates a contactor with coil terminals and main/auxiliary contacts for three-phase motor control.
+/// Specialized for three-phase power switching. Features power contacts (L/T) 
+/// and auxiliary/coil contacts (A1/A2, 13/14).
 ///
-/// - name (string): Component identifier/name
-/// - pos (position|string): Placement position
-/// - label (string): Contactor label; default: "Schütz"
-/// - ..params: Additional style parameters (width, height, fill, stroke, etc.)
+/// - name (string): Component identifier/name.
+/// - pos (position, string): Placement position.
+/// - label (string): Contactor title; default: "Schütz".
+/// - top_pins (array): Custom power/control pin configuration for the top.
+/// - bottom_pins (array): Custom power/control pin configuration for the bottom.
+/// - ..params (any): Additional style parameters.
 #let contactor(name, pos, 
   label: "Schütz", 
 

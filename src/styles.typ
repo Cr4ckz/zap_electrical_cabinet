@@ -204,8 +204,8 @@
     text-size: 6pt,
   ),
   generic_box: (
-    width: 4.0,        
-  height: 4.0,             
+    width: 3.0,        
+  height: 3.0,             
   fill: white.darken(2%),  
   stroke: black + 0.8pt,   
   text-size: 8pt,          

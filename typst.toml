@@ -1,13 +1,13 @@
 [package]
-name = "zap"
-version = "0.5.0"
+name = "zap-ec"
+version = "0.1.0"
 compiler = "0.14.1"
 entrypoint = "src/lib.typ"
-authors = ["Louis Grange <https://github.com/l0uisgrange>"]
+authors = ["Cr4ckz <https://github.com/Cr4ckz>"]
 license = "LGPL-3.0-or-later"
-homepage = "https://zap.grangelouis.ch"
+homepage = ""
 description = "A package to draw amazing electronic circuits using CeTZ superpowers"
-repository = "https://github.com/l0uisgrange/zap"
+repository = "https://github.com/Cr4ckz/zap-electrical-cabinet"
 categories = ["visualization", "components"]
 disciplines = ["engineering"]
 keywords = ["zap", "electronic", "circuit", "cetz", "circuitikz", "voltage", "draw", "schema", "engineering"]

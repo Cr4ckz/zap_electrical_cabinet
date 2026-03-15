@@ -5,17 +5,21 @@
 
 /// A Miniature Circuit Breaker (MCB) component for electrical protection.
 ///
-/// Draws a DIN-rail mountable MCB with two connection points (top and bottom)
+/// Draws a DIN-rail mountable MCB with two connection points (top and bottom) 
 /// and an optional label describing the breaker characteristics.
 ///
-/// - name (string): Component identifier/name
-/// - node (position|string): Placement position or anchor point
-/// - label (string): Breaker label/rating (e.g., "B10", "B123"); default: ""
-/// - width (length): MCB width; default: 1.0
-/// - height (length): MCB height; default: 2.4
-/// - fill (color): Body fill color; default: rgb("#f5f5f5")
-/// - text-size (length): Label font size; default: 3.5pt
-/// - ..params: Additional style parameters (stroke, etc.)
+/// - name (string): Component identifier/name.
+/// - node (position, string): Placement position or anchor point.
+/// - label (string): Breaker label or rating (e.g., "B16"); default: "".
+/// - width (length): MCB body width; default: 1.0.
+/// - height (length): MCB body height; default: 2.4.
+/// - fill (color): Body fill color; default: rgb("#f5f5f5").
+/// - text-size (length): Label font size; default: 3.5pt.
+/// - ..params (any): Additional style parameters such as stroke.
+///
+/// *Anchors:*
+/// - p1: Top connection terminal.
+/// - p2: Bottom connection terminal.
 #let mcb(name, node, label: "", ..params) = {
   let draw(ctx, position, style) = {
     let w = style.at("width", default: 1.0)
