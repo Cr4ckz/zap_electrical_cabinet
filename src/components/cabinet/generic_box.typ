@@ -35,7 +35,7 @@
     let pin-size = style.at("pin-text-size", default: 5pt)
     let t-h = 0.25
 
-    // 1. Gehäuse
+
     rect(
       (-w / 2, -h / 2),
       (w / 2, h / 2),
@@ -51,7 +51,7 @@
       let is_horizontal = (side == "top" or side == "bottom")
       let total_length = if is_horizontal { w } else { h }
 
-      // Abstand zwischen den Gruppen berechnen
+
       let n_groups = groups.len()
       let group_unit = total_length / (n_groups + 1)
       let global_pin_idx = 1
@@ -67,16 +67,13 @@
 
         let n_pins = pins_to_draw.len()
 
-        // WICHTIG: Die Pin-Breite muss klein genug sein, damit n_pins * pin_w
-        // nicht die verfügbare Segment-Breite (group_unit) sprengt.
         let pin_w = calc.min(0.45, (total_length / (n_groups + 1)) / (n_pins + 0.5))
         let group_w = n_pins * pin_w
 
-        // Das Zentrum der Gruppe
         let group_center = -total_length / 2 + (g_idx + 1) * group_unit
 
         for (p_idx, p_label) in pins_to_draw.enumerate() {
-          // p_offset relativ zum group_center
+
           let p_offset = group_center - (group_w / 2) + (p_idx + 0.5) * pin_w
 
           let pos = if is_horizontal {
@@ -85,7 +82,6 @@
             (if side == "left" { -w / 2 } else { w / 2 }, p_offset)
           }
 
-          // Zeichnen der Rechtecke (Klemmenkörper)
           if is_horizontal {
             rect(
               (p_offset - pin_w / 2, pos.at(1)),
@@ -102,14 +98,13 @@
             )
           }
 
-          // Schraube zentrieren
+
           let (px, py) = pos
           let circle_pos = if side == "top" { (px, py - t-h / 2) } else if side == "bottom" {
             (px, py + t-h / 2)
           } else if side == "left" { (px + t-h / 2, py) } else { (px - t-h / 2, py) }
           circle(circle_pos, radius: 0.04, fill: gray.darken(20%), stroke: none)
 
-          // Anker
           anchor(side.first() + str(global_pin_idx), pos)
           anchor(side.first() + str(g_idx + 1) + "_" + str(p_idx + 1), pos)
           let clean_name = str(p_label).replace(".", "_")
@@ -119,7 +114,7 @@
 
           let l_off = 0.25
 
-          // Wir bestimmen die Position UND das Alignment
+
           let (p_label_pos, p_align) = if side == "top" {
             ((pos.at(0), pos.at(1) - t-h - l_off), "north")
           } else if side == "bottom" {
