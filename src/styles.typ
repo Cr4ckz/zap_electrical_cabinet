@@ -191,7 +191,8 @@
     width: 1,
     height: 2.2,
     fill: rgb("#f0f0f0"),
-    text-size: 3pt,
+    text-size: 4pt,
+    text-size-bottom: 3pt,
   ),
   dinrail: (
     length: 13.4,

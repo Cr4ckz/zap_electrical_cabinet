@@ -112,20 +112,25 @@
 
           global_pin_idx += 1
 
-          let l_off = 0.25
+          let l_off = 0.1
 
 
-          let (p_label_pos, p_align) = if side == "top" {
-            ((pos.at(0), pos.at(1) - t-h - l_off), "north")
+          let (p_label_pos, p_align, p_angle) = if side == "top" {
+            ((pos.at(0), pos.at(1) - t-h - l_off), "east", 90deg)
           } else if side == "bottom" {
-            ((pos.at(0), pos.at(1) + t-h + l_off), "south")
+            ((pos.at(0), pos.at(1) + t-h + l_off), "west", 90deg)
           } else if side == "left" {
-            ((pos.at(0) + t-h + l_off, pos.at(1)), "west")
+            ((pos.at(0) + t-h + l_off, pos.at(1)), "west", 0deg)
           } else {
-            ((pos.at(0) - t-h - l_off, pos.at(1)), "east")
+            ((pos.at(0) - t-h - l_off, pos.at(1)), "east", 0deg)
           }
 
-          content(p_label_pos, text(size: pin-size, weight: "bold", [#p_label]), anchor: p_align)
+          content(
+            p_label_pos, 
+            text(size: pin-size, weight: "bold", [#p_label]), 
+            anchor: p_align,
+            angle: p_angle
+          )
         }
       }
     }

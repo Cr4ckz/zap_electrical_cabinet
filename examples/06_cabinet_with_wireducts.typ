@@ -5,16 +5,16 @@
   cabinet("main", (0,0), rows: 7)
   
   // Oben und unten Kabelkanäle
-  wireduct("duct-top", (rel: (0, 0), to: "main.slot-1"))
-  wireduct("duct-top-vert", (rel: (0, -2), to: "main.slot-1"), orientation: "vertical", length:4)
-  wireduct("duct-bottom", "main.slot-7")
+  wireduct("duct-top", (rel: (0.5, 0), to: "main.slot-1"))
+  wireduct("duct-top-vert", (rel: (2, -2), to: "main.slot-1"), orientation: "vertical", length:4)
+  wireduct("duct-bottom", (rel: (0.5, 0), to: "main.slot-7"))
   
   // Dazwischen Hutschienen
-  dinrail("rail1", "main.slot-3")
-  dinrail("rail2", "main.slot-5")
+  dinrail("rail1", (rel: (0.5, 0), to: "main.slot-3"))
+  dinrail("rail2", (rel: (0.5, 0), to: "main.slot-5"))
   
   // Ein horizontaler Kanal zwischen den Schienen
-  wireduct("duct-mid", "main.slot-4")
+  wireduct("duct-mid", (rel: (0.5, 0), to: "main.slot-4"))
 
   terminal("L1", (rel: (0.5, 0), to: "rail1.west"), fill: white, label: "Test", text-size: 10pt)
   

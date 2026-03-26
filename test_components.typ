@@ -5,7 +5,7 @@
   cabinet("main", (0, 0), rows: 7)
   
   // Wireducts
-  wireduct("duct-top", (rel: (-3, 0), to: "main.slot-1"), length: 8)
+  wireduct("duct-top", (rel: (1, 0), to: "main.slot-1"), length: 8)
   wireduct("duct-bottom", "main.slot-7")
   
   // DIN Rails
@@ -14,7 +14,7 @@
   
   // Cabinet Components
   terminal("L1", (rel: (0.5, 0), to: "rail1.west"), fill: white, label: "L", text-size: 10pt)
-  mcb("CB1", (rel: (1.5, 0), to: "rail1.west"), label: "B10", text-size: 10pt)
+  mcb("CB1", (rel: (1.5, 0), to: "rail1.west"), label: "B10", label-bottom: "10A", text-size: 10pt, text-size-bottom: 8pt, phases: 3)
   psu("PSU1", (rel: (5, 0), to: "rail1.west"), label: "24V PSU", height: 3, width: 1.8, text-size: 10pt)
   
   psu("PSU2", (rel: (1.5, 0), to: "rail2.west"), plus_count: 3, minus_count: 3, width: 3.5, label: "Power", text-size: 10pt)
@@ -24,10 +24,10 @@
 
   // ===== Vertical Section =====
   // Vertical DIN rail
-  dinrail("rail-vert", (16, 4), orientation: "vertical")
+  dinrail("rail-vert", (16, -5), orientation: "vertical")
   
   // Vertical wireduct
-  wireduct("duct-vert", (17.5, 4), orientation: "vertical", length: 6)
+  wireduct("duct-vert", (17.5, -5), orientation: "vertical", length: 6)
   
   // Wires connecting to vertical components
   set-style(wire: (stroke: black))
@@ -85,7 +85,7 @@
   cabinet("main", (0, 0), rows: 7)
   
   // Wireducts
-  wireduct("duct-top", (rel: (-3, 0), to: "main.slot-1"), length: 8)
+  wireduct("duct-top", (rel: (1, 0), to: "main.slot-1"), length: 8)
   wireduct("duct-bottom", "main.slot-7")
   
   // DIN Rails
@@ -94,7 +94,7 @@
   
   // Cabinet Components
   terminal("L1", (rel: (0.5, 0), to: "rail1.west"), fill: white, label: "L", text-size: 10pt)
-  mcb("CB1", (rel: (1.5, 0), to: "rail1.west"), label: "B10", text-size: 10pt)
+  mcb("CB1", (rel: (1.5, 0), to: "rail1.west"), label: "B10", label-bottom: "10A", text-size: 10pt, text-size-bottom: 8pt, phases: 3)
   psu("PSU1", (rel: (5, 0), to: "rail1.west"), label: "24V PSU", height: 3, width: 1.8, text-size: 10pt)
   
   psu("PSU2", (rel: (1.5, 0), to: "rail2.west"), plus_count: 3, minus_count: 3, width: 3.5, label: "Power", text-size: 10pt)
@@ -104,10 +104,10 @@
 
   // ===== Vertical Section =====
   // Vertical DIN rail
-  dinrail("rail-vert", (16, 4), orientation: "vertical")
+  dinrail("rail-vert", (16, -5), orientation: "vertical")
   
   // Vertical wireduct
-  wireduct("duct-vert", (17.5, 4), orientation: "vertical", length: 6)
+  wireduct("duct-vert", (17.5, -5), orientation: "vertical", length: 6)
   
   // Wires connecting to vertical components
   set-style(wire: (stroke: black))

@@ -5,8 +5,8 @@
 #circuit(debug: false, {
   // Create cabinet and DIN rails
   cabinet("main", (0, 0), rows: 6)
-  dinrail("rail1", "main.slot-2")
-  dinrail("rail2", "main.slot-5")
+  dinrail("rail1", ((rel: (0.5, 0), to:("main.slot-2"))))
+  dinrail("rail2", (rel: (0.5, 0), to:("main.slot-5")))
   
   // Components on DIN rails
   terminal("L", (rel: (0.5, 0), to: "rail1.west"), label: "L")

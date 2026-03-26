@@ -26,11 +26,11 @@
     let l = style.at("length", default: 13)
     let w = style.at("width", default: 0.8)
 
-    interface((-l / 2, -w / 2), (l / 2, w / 2), io: position.len() < 2)
+    interface((0, -w / 2), (l, w / 2), io: position.len() < 2)
 
     group(name: "rail", {
-      rect((-l / 2, -w / 2), (l / 2, w / 2), fill: silver, stroke: gray, name: "bounds")
-      line((-l / 2, 0), (l / 2, 0), stroke: (paint: gray, dash: "densely-dotted"))
+      rect((0, -w / 2), (l, w / 2), fill: silver, stroke: gray, name: "bounds")
+      line((0, 0), (l, 0), stroke: (paint: gray, dash: "densely-dotted"))
     })
   }
 
@@ -52,8 +52,8 @@
 /// - ..params (any): Additional style parameters for the enclosure frame.
 ///
 /// *Slot Anchors:*
-/// - slot-n: Center of the n-th row (e.g., "slot-1").
-/// - slot-n-left: Leftmost point of the n-th row.
+/// - slot-n-center: Center of the n-th row (e.g., "slot-1-center").
+/// - slot-n: Leftmost point of the n-th row.
 #let cabinet(name, node, orientation: "horizontal", ..params) = {
   let rotate = 0deg
   if (orientation == "vertical") {
@@ -78,14 +78,14 @@
       let step = ph / (rows + 1)
       for i in range(1, rows + 1) {
         let y = (ph / 2) - (i * step)
-        anchor("s" + str(i), (0, y))
-        anchor("s" + str(i) + "-left", (-pw / 2, y))
+        anchor("s" + str(i) + "-center", (0, y))
+        anchor("s" + str(i), (-pw / 2, y))
       }
     })
 
     for i in range(1, rows + 1) {
+      anchor("slot-" + str(i), "intern.s" + str(i) + "-center")
       anchor("slot-" + str(i), "intern.s" + str(i))
-      anchor("slot-" + str(i) + "-left", "intern.s" + str(i) + "-left")
     }
   }
 
@@ -116,14 +116,14 @@
     let w = style.at("width", default: 1.2)
     let slot-dist = 0.4
 
-    interface((-l / 2, -w / 2), (l / 2, w / 2), io: position.len() < 2)
+    interface((0, -w / 2), (l, w / 2), io: position.len() < 2)
 
     group(name: "duct", {
-      rect((-l / 2, -w / 2), (l / 2, w / 2), fill: gray.lighten(60%), stroke: gray.darken(20%), name: "bounds")
+      rect((0, -w / 2), (l, w / 2), fill: gray.lighten(60%), stroke: gray.darken(20%), name: "bounds")
 
       let num-slots = int(l / slot-dist)
       for i in range(0, num-slots) {
-        let x = -l / 2 + (i * slot-dist) + (slot-dist / 2)
+        let x = (i * slot-dist) + (slot-dist / 2)
 
 
         line((x, w / 2), (x, w / 2 - 0.2), stroke: gray.darken(40%) + 0.5pt)
@@ -132,8 +132,8 @@
       }
 
 
-      line((-l / 2, w / 2 - 0.1), (l / 2, w / 2 - 0.1), stroke: white + 0.2pt)
-      line((-l / 2, -w / 2 + 0.1), (l / 2, -w / 2 + 0.1), stroke: white + 0.2pt)
+      line((0, w / 2 - 0.1), (l, w / 2 - 0.1), stroke: white + 0.2pt)
+      line((0, -w / 2 + 0.1), (l, -w / 2 + 0.1), stroke: white + 0.2pt)
     })
   }
 

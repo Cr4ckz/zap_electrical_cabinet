@@ -94,10 +94,10 @@ Used for cable management.\ Setting `orientation: "vertical"` rotates the duct c
 *Visual Example:*
 #box(width: auto, fill: gray.lighten(95%), inset: 10pt, {
   circuit(debug: false, {
-      cabinet("main", (0, 0), rows: 4, width: 12, height: 5)
-    wireduct("rail1", "main.slot-1", length: 10)
+      cabinet("main", (0, 0), rows: 4, width: 12, height: 6)
+    wireduct("rail1", (rel:(0.5, 0), to:("main.slot-1")), length: 10)
     
-    wireduct("rail2", "main.slot-3", length: 4, orientation: "vertical")
+    wireduct("rail2", (rel:(2, -2), to:("main.slot-3")), length: 4, orientation: "vertical")
   })
 })
 
@@ -105,8 +105,8 @@ Used for cable management.\ Setting `orientation: "vertical"` rotates the duct c
 ```typst
 #circuit(debug: false, {
   cabinet("main", (0, 0), rows: 4, width: 12, height: 5)
-  wireduct("rail1", "main.slot-1", length: 10)
-  wireduct("rail2", "main.slot-3", length: 4, orientation: "vertical")
+  wireduct("rail1", (rel:(0.5, 0), to:("main.slot-1")), length: 10)
+  wireduct("rail2", (rel:(2, -2), to:("main.slot-3")), length: 4, orientation: "vertical")
 })
 ```
 The first creates a horizontal cable duct, the second a vertical one for organizing wiring.
@@ -114,18 +114,18 @@ The first creates a horizontal cable duct, the second a vertical one for organiz
 == Component Library
 
 === Protective Devices (`mcb`)
-The Miniature Circuit Breaker represents a single-pole protection unit.
-- *Anchors*: `p1` (Line/Top), `p2` (Load/Bottom).
+The Miniature Circuit Breaker represents a single-pole protection unit. Also supports multi-pole configurations by specifying the `phases` parameter.
+- *Anchors*: `p1` (Line/Top), `p2` (Load/Bottom) or added a `_n` suffix for multi-pole (e.g., `p1_2` for the second pole).
 - *Example*: `#mcb("F1", "rail1.west", label: "B16")`.
 
 *Visual Example:*
 #box(width: auto, fill: gray.lighten(95%), inset: 10pt, {
   circuit(debug: false, {
     cabinet("main", (0, 0), rows: 3, width: 12, height: 5)
-    dinrail("rail1", "main.slot-1", length: 10)
-    mcb("F1", "rail1.west", label: "B16")
+    dinrail("rail1", (rel: (0.5, 0), to:("main.slot-1")), length: 10)
+    mcb("F1", (rel: (0,0), to:("rail1.west")), label: "B16")
     mcb("F2", (rel: (1,0), to:("rail1.west")), label: "C10")
-    mcb("F3", (rel: (2,0), to:("rail1.west")), label: "D20")
+    mcb("F3", (rel: (3,0), to:("rail1.west")), label: "D20", phases: 3, label-bottom: "10A")
   })
 })
 
@@ -133,10 +133,10 @@ The Miniature Circuit Breaker represents a single-pole protection unit.
 ```typst
 #circuit(debug: false, {
   cabinet("main", (0, 0), rows: 3, width: 12, height: 5)
-  dinrail("rail1", "main.slot-1", length: 10)
-  mcb("F1", "rail1.west", label: "B16")
+  dinrail("rail1", (rel: (0.5, 0), to:("main.slot-1")), length: 10)
+  mcb("F1", (rel: (0,0), to:("rail1.west")), label: "B16")
   mcb("F2", (rel: (1,0), to:("rail1.west")), label: "C10")
-  mcb("F3", (rel: (2,0), to:("rail1.west")), label: "D20")
+  mcb("F3", (rel: (3,0), to:("rail1.west")), label: "D20", phases: 3, label-bottom: "10A")
 })
 ```
 
@@ -233,8 +233,8 @@ Instead of placing terminals manually, use this function to generate an entire n
 #box(width: auto, fill: gray.lighten(95%), inset: 10pt, {
   circuit(debug: false, {
     cabinet("main", (0, 0), rows: 3, width: 12, height: 4)
-    dinrail("rail2", "main.slot-2", length: 10)
-    terminal_strip("X1", "rail2.west", ("L1", "L2", "L3", "N", "PE"))
+    dinrail("rail2", (rel: (0.5, 0), to:("main.slot-2")), length: 10)
+    terminal_strip("X1", (rel: (0, 0), to:("rail2.west")), ("L1", "L2", "L3", "N", "PE"))
   })
 })
 
@@ -242,8 +242,8 @@ Instead of placing terminals manually, use this function to generate an entire n
 ```typst
 #circuit(debug: false, {
   cabinet("main", (0, 0), rows: 3, width: 12, height: 4)
-  dinrail("rail2", "main.slot-2", length: 10)
-  terminal_strip("X1", "rail2.west", ("L1", "L2", "L3", "N", "PE"))
+  dinrail("rail2", (rel: (0.5, 0), to:("main.slot-2")), length: 10)
+  terminal_strip("X1", (rel: (0, 0), to:("rail2.west")), ("L1", "L2", "L3", "N", "PE"))
 })
 ```
 

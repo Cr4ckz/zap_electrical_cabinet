@@ -7,7 +7,7 @@
   cabinet("main", (0, 0), rows: 6)
   
   // Add DIN rail in slot 2
-  dinrail("rail", "main.slot-2")
+  dinrail("rail", (rel: (0.5, 0), to:("main.slot-2")))
   
   // Add power supply terminals
   terminal("L1", (rel: (0.5, 0), to: "rail.west"), label: "L", text-size: 10pt)
